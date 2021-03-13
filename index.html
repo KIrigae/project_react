@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Прогноз погоды</title>
+</head>
+<body>
+    <div id="Weather"></div>
+    <script type="text/babel"> 
+        class Card extends React.Component{
+            render() {
+                const timeOfDay ={
+                    "sunny morning":"#D5B394",
+                    "rain day":"#9991CB",
+                    "foggy evening":"#9AAFC6",
+                    "snowfall night":"#94C7D1"
+                }
+
+                const weatherType = {
+                    "sunny":"img/sun.webp", 
+                    "foggy":"img/fogg.webp",
+                    "rain":"img/rain.webp",
+                    "snowfall":"img/snow.webp"
+                }
+
+                const cardStyle = {
+                   "display":"flex",
+                   "height": "200px",
+                   "width": "300px",
+                   "alignItems":"center",
+                   "justifyContent":"center",
+                   "fontFamily":"calibri",
+                   "fontWeight":"normal",
+                   "margin":"10px",
+                   "float":"left",
+                   "backgroundColor":`${timeOfDay[this.props.weatherType + ' ' + this.props.name]}`,
+                   "boxShadow":"0 0 10px grey",
+                   "borderRadius":"20px"
+                   
+                }
+                const imgMargin = {
+                    "marginTop":"7px",
+                    "marginLeft":"5px"
+                }
+
+                return(
+                    <div className="weatherCard" style={cardStyle}>
+                        <div>
+                            <div> {this.props.name}</div>
+                            <div> {this.props.temp}°C </div>
+                            <div> {this.props.weatherType}</div>
+                        </div>
+                        <div>
+                            <img src={weatherType[this.props.weatherType]} width="30px" style={imgMargin}/>
+                        </div>
+                        
+                    </div>
+                )
+            }
+        } 
+        ReactDOM.render(
+            <div>
+                <Card name='morning' temp='20' weatherType='sunny' />
+                <Card name='day' temp='10' weatherType='rain' />
+                <Card name='evening' temp='17' weatherType='foggy' />
+                <Card name='night' temp='-10' weatherType='snowfall' />
+            </div>,
+            document.getElementById('Weather')
+        )
+
+    </script>
+</body>
+</html>
